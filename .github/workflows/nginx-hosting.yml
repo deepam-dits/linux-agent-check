@@ -25,6 +25,6 @@ jobs:
 
       - name: Deploy Web Page
         run: |
-          sudo cp -r E-commerce(Food)/* /var/www/html/
+          sudo cp -r E-commerce\(Food\)/* /var/www/html/
           sudo systemctl restart nginx
           echo "Web page deployed successfully."
