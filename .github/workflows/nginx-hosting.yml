@@ -1,0 +1,30 @@
+name: Deploy Website to Nginx
+
+on:
+  push:
+    branches:
+      - main  
+
+jobs:
+  deploy:
+    runs-on: linux-agent  
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check & Install Nginx
+        run: |
+          if dpkg -l | grep -q nginx; then
+            echo "Nginx already exists."
+          else
+            echo "Nginx not found. Installing..."
+            sudo apt update
+            sudo apt install nginx -y
+          fi
+
+      - name: Deploy Web Page
+        run: |
+          sudo cp -r "E-commerce(Food)"/* /var/www/html/
+          sudo systemctl restart nginx
+          echo "Web page deployed successfully."
